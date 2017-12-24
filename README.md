@@ -4,7 +4,7 @@ This project contains some examples of Design Patterns subdivided by categories.
 
 ## How to compile the C++ sources:
 
-To compile the sources you need first the CMake tool ( that you can download from here: https://www.cmake.org/download ) which will configure the Makefile depending on your OS platform.
+To compile the sources you need first the CMake tool ( https://www.cmake.org/download ) which will configure the Makefile depending on your OS platform.
 
 If you are new to CMake I suggest you to take a look at it on its documentation's pages. Otherwise, assign the sources and build directories to the CMake GUI and configure it.
 
