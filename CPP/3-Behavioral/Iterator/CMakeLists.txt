@@ -1,4 +1,4 @@
 # Add new project
 project(Iterator)
 
-add_executable (iteratorDemo Stack.cpp StackIter.cpp main.cpp)
+add_executable (iteratorDemo Container.cpp ContainerIterator.cpp main.cpp)

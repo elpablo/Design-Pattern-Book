@@ -1,21 +1,21 @@
-#include "StackIter.h"
-#include "Stack.h"
+#include "ContainerIterator.h"
+#include "Container.h"
 
-bool StackIter::is_done()
+bool ContainerIterator::is_done()
 {
-    return _index == _stk->_stack_pointer + 1;
+    return _index == _container->_container_pointer + 1;
 }
 
-int StackIter::current_item()
+int ContainerIterator::current_item()
 {
-    return _stk->_items[_index];
+    return _container->_items[_index];
 }
 
-bool operator == (const Stack &l, const Stack &r)
+bool operator == (const Container &l, const Container &r)
 {
     // Clients ask the container object to create an iterator object
-    StackIter *itl = l.create_iterator();
-    StackIter *itr = r.create_iterator();
+    ContainerIterator *itl = l.create_iterator();
+    ContainerIterator *itr = r.create_iterator();
 
     // Clients use the first(), is_done(), next(), and current_item() protocol
     for (itl->first(), itr->first(); !itl->is_done(); itl->next(), itr->next())

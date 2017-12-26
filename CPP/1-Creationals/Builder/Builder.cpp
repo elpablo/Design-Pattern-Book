@@ -28,6 +28,7 @@ public:
     {
         // Use the information to create
         // the Image to pass to the caller
+        return NULL;
     }
 };
 

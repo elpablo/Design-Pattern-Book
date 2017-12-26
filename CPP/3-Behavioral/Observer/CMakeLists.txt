@@ -1,4 +1,4 @@
 # Add new project
 project(Observer)
 
-add_executable (observerDemo Subject.cpp main.cpp)
+add_executable (observerDemo Model.cpp main.cpp)

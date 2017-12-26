@@ -3,22 +3,22 @@
 #include <vector>
 #include <ctime>
 
-class Base
+class EventHandler
 {
-    Base *_next; // "_next" pointer in the base class
+    EventHandler *_next; // "_next" pointer in the base class
 
 public:
-    Base()
+    EventHandler()
     {
         _next = 0;
     }
 
-    void setNext(Base *n)
+    void setNext(EventHandler *n)
     {
         _next = n;
     }
 
-    void add(Base *n)
+    void add(EventHandler *n)
     {
         if (_next)
         {
@@ -38,7 +38,7 @@ public:
     }
 };
 
-class Handler1: public Base
+class MouseEventHandler: public EventHandler
 {
 public:
     /*virtual*/ void handle(int i)
@@ -46,46 +46,46 @@ public:
         if (rand() % 3)
         {
             // Don't handle requests 3 times out of 4
-            std::cout << "H1 passed " << i << "  ";
-            Base::handle(i); // Delegate to the base class
+            std::cout << "MouseEvent passed " << i << "  ";
+            EventHandler::handle(i); // Delegate to the base class
         }
         else
         {
-            std::cout << "H1 handled " << i << "  ";
+            std::cout << "MouseEvent handled " << i << "  ";
         }
     }
 };
 
-class Handler2: public Base
+class KeyEventHandler: public EventHandler
 {
 public:
     /*virtual*/ void handle(int i)
     {
         if (rand() % 3)
         {
-            std::cout << "H2 passed " << i << "  ";
-            Base::handle(i);
+            std::cout << "KeyEvent passed " << i << "  ";
+            EventHandler::handle(i);
         }
         else
         {
-            std::cout << "H2 handled " << i << "  ";
+            std::cout << "KeyEvent handled " << i << "  ";
         }
     }
 };
 
-class Handler3: public Base
+class InteractionEventHandler: public EventHandler
 {
 public:
     /*virtual*/ void handle(int i)
     {
         if (rand() % 3)
         {
-            std::cout << "H3 passed " << i << "  ";
-            Base::handle(i);
+            std::cout << "InteractionEvent passed " << i << "  ";
+            EventHandler::handle(i);
         }
         else
         {
-            std::cout << "H3 handled " << i << "  ";
+            std::cout << "InteractionEvent handled " << i << "  ";
         }
     }
 };
@@ -93,9 +93,9 @@ public:
 int main()
 {
     srand(time(0));
-    Handler1 mainUI;
-    Handler2 textField;
-    Handler3 textArea;
+    MouseEventHandler mainUI;
+    KeyEventHandler textField;
+    InteractionEventHandler textArea;
 
     mainUI.add(&textField);
     mainUI.add(&textArea);
@@ -116,14 +116,14 @@ int main()
 /*
 Output:
 
-H1 passed 1  H2 passed 1  H3 handled 1
-H1 passed 2  H2 handled 2
-H1 passed 3  H2 passed 3  H3 handled 3
-H1 handled 4
-H1 passed 5  H2 passed 5  H3 passed 5  H1 handled 5
-H1 handled 6
-H1 handled 7
-H1 passed 8  H2 handled 8
-H1 passed 9  H2 handled 9
+MouseEvent passed 1  KeyEvent passed 1  InteractionEvent handled 1
+MouseEvent passed 2  KeyEvent handled 2
+MouseEvent passed 3  KeyEvent passed 3  InteractionEvent handled 3
+MouseEvent handled 4
+MouseEvent passed 5  KeyEvent passed 5  InteractionEvent passed 5  MouseEvent handled 5
+MouseEvent handled 6
+MouseEvent handled 7
+MouseEvent passed 8  KeyEvent handled 8
+MouseEvent passed 9  KeyEvent handled 9
 
 */

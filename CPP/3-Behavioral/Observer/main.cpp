@@ -1,10 +1,10 @@
-#include "Subject.h"
+#include "Model.h"
 #include "Observer.h"
 
 
 int main()
 {
-    Subject subj;
+    Model subj;
     // Client configures the number and...
     DivObserver divObs1(&subj, 4);
     DivObserver divObs2(&subj, 3);

@@ -1,17 +1,17 @@
 #include <iostream>
 #include <math.h>
 
-class CircleData
+class MoelData
 {
     // Private Class Data variables cannot be modified
-    // by anyone externally to the CircleData class and their
+    // by anyone externally to the MoelData class and their
     // structure is hidden to the client code that use the
     // Circle class
     double radius;
     double origin[2];
 
 public:
-    CircleData(double radius, double origin_x, double origin_y)
+    MoelData(double radius, double origin_x, double origin_y)
     {
         this->radius = radius;
         this->origin[0] = origin_x;
@@ -37,22 +37,22 @@ public:
 
 class Circle
 {
-    CircleData *circleData;
+    MoelData *_data;
 
 public:
     Circle(double r, double x, double y)
     {
-        this->circleData = new CircleData(r, x, y);
+        this->_data = new MoelData(r, x, y);
     }
 
     double Circumference()
     {
-        return 2.0 * this->circleData->Radius() * M_PI;
+        return 2.0 * this->_data->Radius() * M_PI;
     }
 
     double Diameter()
     {
-        return this->circleData->Radius() * 2.0;
+        return this->_data->Radius() * 2.0;
     }
 
     void Draw()

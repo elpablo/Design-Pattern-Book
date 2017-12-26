@@ -1,6 +1,6 @@
 #include <iostream>
 
-// lowest common denominator
+// Base class with lowest common APIs
 class Widget
 {
 public:
@@ -8,14 +8,14 @@ public:
     virtual void draw() = 0;
 };
 
-class TextField: public Widget
+// Button is the core class to draw the widget
+class Button: public Widget
 {
-    // "Core" class & "is a"
     int _width;
     int _height;
 
 public:
-    TextField(int w, int h)
+    Button(int w, int h)
     {
         _width = w;
         _height = h;
@@ -23,67 +23,65 @@ public:
 
     /*virtual*/ void draw()
     {
-        std::cout << "TextField: " << _width << ", " << _height << std::endl;
+        std::cout << "Button: " << _width << ", " << _height << std::endl;
     }
 };
 
-// 2nd level base class
-// The Inheritance from the Widget
+// The inheritance from the Widget
 // base class gives the "is a" relationship
 class Decorator: public Widget
 {
-    Widget *_wid; // "has a" relationship
+    Widget *_widget; // "has a" relationship
 
 public:
-    Decorator(Widget *w)
+    Decorator(Widget *f)
     {
-        _wid = w;
+        _widget = f;
     }
 
     /*virtual*/ void draw()
     {
-        _wid->draw(); // Delegation
+        _widget->draw(); // Delegate execution
     }
 };
 
 class BorderDecorator: public Decorator
 {
 public:
-    // Optional embellishment
+    // Optional decoration
     BorderDecorator(Widget *w): Decorator(w){}
 
     /*virtual*/ void draw()
     {
-        // Delegate to base class and add extra stuff
+        // Delegate to base class and add extra widget's decoration
         Decorator::draw();
         std::cout << "   BorderDecorator" << std::endl;
     }
 };
 
-class ScrollDecorator: public Decorator
+class ButtonImageDecorator: public Decorator
 {
 public:
-    // Optional embellishment
-    ScrollDecorator(Widget *w): Decorator(w){}
+    // Optional decoration
+    ButtonImageDecorator(Widget *w): Decorator(w) {}
 
     /*virtual*/ void draw()
     {
-        // Delegate to base class and add extra stuff
+        // Delegate to base class and add extra widget's decoration
         Decorator::draw();
-        std::cout << "   ScrollDecorator" << std::endl;
+        std::cout << "   ButtonImageDecorator" << std::endl;
     }
 };
 
 int main()
 {
     // Client has the responsibility to compose desired configurations
-    Widget *aWidget = new BorderDecorator(
-                        new BorderDecorator(
-                            new ScrollDecorator(
-                                new TextField(80, 24))));
-    aWidget->draw();
+    Widget *btn = new BorderDecorator(
+                      new ButtonImageDecorator(
+                          new Button(44, 44)));
+    btn->draw();
     // ...
-    delete aWidget;
+    delete btn;
 
     return 0;
 }
@@ -92,9 +90,8 @@ int main()
 /*
 Output:
 
-TextField: 80, 24
-   ScrollDecorator
-   BorderDecorator
-   BorderDecorator
+Button: 44, 44
+ButtonImageDecorator
+BorderDecorator
 
 */

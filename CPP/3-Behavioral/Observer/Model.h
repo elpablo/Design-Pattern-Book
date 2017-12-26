@@ -5,16 +5,16 @@
 
 class Observer;
 
-class Subject
+class Model
 {
     // "independent" functionality
-    std::vector< Observer * > _views; // Coupled only to "interface"
+    std::vector<Observer *> _observers; // Coupled only to "interface"
     int _value;
 
 public:
     void attach(Observer *obs)
     {
-        _views.push_back(obs);
+        _observers.push_back(obs);
     }
 
     void setVal(int val)

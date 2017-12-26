@@ -1,6 +1,6 @@
 #include <iostream>
 
-class Number;
+class Wallet;
 
 class Memento
 {
@@ -11,24 +11,24 @@ public:
     }
 
 private:
-    friend class Number; // not essential
+    friend class Wallet; // not essential
     int _state;
 };
 
-class Number
+class Wallet
 {
 public:
-    Number(int value)
+    Wallet(int value)
     {
         _value = value;
     }
 
-    void dubble()
+    void deposit()
     {
         _value = 2 * _value;
     }
 
-    void half()
+    void withdraw()
     {
         _value = _value / 2;
     }
@@ -55,9 +55,9 @@ private:
 class Command
 {
 public:
-    typedef void(Number:: *Action)();
+    typedef void(Wallet:: *Action)();
 
-    Command(Number *receiver, Action action)
+    Command(Wallet *receiver, Action action)
     {
         _receiver = receiver;
         _action = action;
@@ -98,7 +98,7 @@ public:
     }
 
 protected:
-    Number *_receiver;
+    Wallet *_receiver;
     Action _action;
     static Command *_commandList[20];
     static Memento *_mementoList[20];
@@ -114,15 +114,15 @@ int Command::_highWater = 0;
 int main()
 {
     int i;
-    std::cout << "Integer: ";
+    std::cout << "Amount: ";
     std::cin >> i;
-    Number *object = new Number(i);
+    Wallet *wallet = new Wallet(i);
 
     Command *commands[3];
-    commands[1] = new Command(object, &Number::dubble);
-    commands[2] = new Command(object, &Number::half);
+    commands[1] = new Command(wallet, &Wallet::deposit);
+    commands[2] = new Command(wallet, &Wallet::withdraw);
 
-    std::cout << "Exit[0], Double[1], Half[2], Undo[3], Redo[4]: ";
+    std::cout << "Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: ";
     std::cin >> i;
 
     while (i)
@@ -140,39 +140,45 @@ int main()
             commands[i]->execute();
         }
 
-        std::cout << "   " << object->getValue() << std::endl;
-        std::cout << "Exit[0], Double[1], Half[2], Undo[3], Redo[4]: ";
+        std::cout << "   " << wallet->getValue() << std::endl;
+        std::cout << "Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: ";
         std::cin >> i;
     }
+
+    delete commands[1];
+    delete commands[2];
+    delete wallet;
+
+    return 0;
 }
 
 //------------------------------------------------------------------------------
 /*
 Output:
 
-Integer: 11
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 2
+Amount: 11
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 2
    5
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 1
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 1
    10
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 2
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 2
    5
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 3
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 3
    10
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 3
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 3
    5
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 3
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 3
    11
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 3
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 3
 *** Attempt to run off the end!! ***
    11
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 4
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 4
    5
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 4
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 4
    10
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 4
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 4
    5
-Exit[0], Double[1], Half[2], Undo[3], Redo[4]: 4
+Exit[0], Deposit[1], Withdraw[2], Undo[3], Redo[4]: 4
 *** Attempt to run off the end!! ***
    5
 */

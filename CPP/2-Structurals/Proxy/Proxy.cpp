@@ -78,15 +78,15 @@ int main()
 /*
 Output:
 
-$$ ctor: 1
+ctor: 1
 drawing image 1
-$$ ctor: 2
+ctor: 2
 drawing image 2
-$$ ctor: 3
+ctor: 3
 drawing image 3
-$$ ctor: 4
+ctor: 4
 drawing image 4
-$$ ctor: 5
+ctor: 5
 drawing image 5
 dtor: 5
 dtor: 4

@@ -1,18 +1,18 @@
 #ifndef __StackIter_h
 #define __StackIter_h
 
-class Stack;
+class Container;
 
-class StackIter
+class ContainerIterator
 {
     // Design an "iterator" class
-    const Stack *_stk;
+    const Container *_container;
     int _index;
 
 public:
-    StackIter(const Stack *s)
+    ContainerIterator(const Container *s)
     {
-        _stk = s;
+        _container = s;
     }
 
     void first()
@@ -30,6 +30,6 @@ public:
     int current_item();
 };
 
-bool operator == (const Stack &l, const Stack &r);
+bool operator == (const Container &l, const Container &r);
 
 #endif

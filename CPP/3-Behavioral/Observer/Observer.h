@@ -1,22 +1,22 @@
 #ifndef __Observer_h
 #define __Observer_h
 
-#include "Subject.h"
+#include "Model.h"
 #include <iostream>
 
 
 class Observer
 {
     // "dependent" functionality
-    Subject *_model;
+    Model *_model;
     int _denom;
 
 public:
-    Observer(Subject *mod, int div)
+    Observer(Model *mod, int div)
     {
         _model = mod;
         _denom = div;
-        // Observers register themselves with the Subject
+        // Observers register themselves with the Model
         _model->attach(this);
     }
 
@@ -27,7 +27,7 @@ public:
     virtual void update() = 0;
 
 protected:
-    Subject *getSubject()
+    Model *getSubject()
     {
         return _model;
     }
@@ -42,7 +42,7 @@ protected:
 class DivObserver: public Observer
 {
 public:
-    DivObserver(Subject *mod, int div): Observer(mod, div)
+    DivObserver(Model *mod, int div): Observer(mod, div)
     {
     }
 
@@ -59,7 +59,7 @@ public:
 class ModObserver: public Observer
 {
 public:
-    ModObserver(Subject *mod, int div): Observer(mod, div)
+    ModObserver(Model *mod, int div): Observer(mod, div)
     {
     }
 

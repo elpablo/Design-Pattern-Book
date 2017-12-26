@@ -1,12 +1,14 @@
 #include <iostream>
 #include <vector>
 
-class Number
+class Order
 {
 public:
-    void dubble(int &value)
+    void buy(int &quantity)
     {
-        value *= 2;
+        std::cout << "Buy "
+                  << quantity << " Items"
+                  << std::endl;
     }
 };
 
@@ -20,12 +22,12 @@ public:
 class SimpleCommand: public Command
 {
     // Define a type to match the function to call
-    typedef void(Number:: *Action)(int &);
-    Number *receiver;
+    typedef void(Order:: *Action)(int &);
+    Order *receiver;
     Action action;
 
 public:
-    SimpleCommand(Number *rec, Action act)
+    SimpleCommand(Order *rec, Action act)
     {
         receiver = rec;
         action = act;
@@ -59,30 +61,26 @@ public:
 
 int main()
 {
-    Number object;
-    Command *commands[3];
-    SimpleCommand simpleCommand(&object, &Number::dubble);
+    Order object;
+    Command *commands[2];
+    SimpleCommand simpleCommand(&object, &Order::buy);
     commands[0] = &simpleCommand;
 
-    MacroCommand two;
-    two.add(commands[0]);
-    two.add(commands[0]);
-    commands[1] = &two;
+    MacroCommand buy_twice;
+    buy_twice.add(commands[0]);
+    buy_twice.add(commands[0]);
+    commands[1] = &buy_twice;
 
-    MacroCommand four;
-    four.add(&two);
-    four.add(&two);
-    commands[2] = &four;
-
-    int num, multiplier_index;
+    int num, orderer_index;
     while (true)
     {
-        std::cout << "Number: ";
+        std::cout << "Order: ";
         std::cin >> num;
-        std::cout << "Multiplier (0 => 2x 1 => 4x 2 => 16x):";
-        std::cin >> multiplier_index;
-        commands[multiplier_index]->execute(num);
-        std::cout << "   " << num << std::endl;
+        std::cout << "Times (1 => 1x 2 => 2x): ";
+        std::cin >> orderer_index;
+        if (orderer_index == 1 || orderer_index == 2) {
+            commands[orderer_index-1]->execute(num);
+        }
     }
 
     return 0;
@@ -92,16 +90,12 @@ int main()
 /*
 Output:
 
-Enter number selection (0=2x 1=4x 2=16x): 3 0
-   6
-Enter number selection (0=2x 1=4x 2=16x): 3 1
+Enter number selection (0=1x 1=2x): 3 0
+   3
+Enter number selection (0=1x 1=2x): 3 1
    12
-Enter number selection (0=2x 1=4x 2=16x): 3 2
-   48
-Enter number selection (0=2x 1=4x 2=16x): 4 0
+Enter number selection (0=1x 1=2x): 4 0
    8
-Enter number selection (0=2x 1=4x 2=16x): 4 1
+Enter number selection (0=1x 1=2x): 4 1
    16
-Enter number selection (0=2x 1=4x 2=16x): 4 2
-   64
 */
