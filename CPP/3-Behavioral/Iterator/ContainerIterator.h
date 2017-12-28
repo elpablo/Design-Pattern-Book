@@ -30,6 +30,4 @@ public:
     int current_item();
 };
 
-bool operator == (const Container &l, const Container &r);
-
 #endif
