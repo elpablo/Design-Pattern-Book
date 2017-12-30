@@ -13,7 +13,7 @@ public:
         return instance;
     }
 
-    void do_something(int param)
+    void doSomething(int param)
     {
         std::cout << "Do something... " << param << std::endl;
     }
@@ -23,7 +23,7 @@ public:
 int main()
 {
     MySingleton s = MySingleton::getInstance();
-    s.do_something(42);
+    s.doSomething(42);
 
     return 0;
 }

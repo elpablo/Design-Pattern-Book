@@ -11,11 +11,11 @@ int main()
         stack.push(i);
     }
 
-    ContainerIterator *iter = stack.create_iterator();
-    
-    while (!iter->is_done())
+    ContainerIterator *iter = stack.createIterator();
+
+    while (!iter->isDone())
     {
-        std::cout << "Item: " << iter->current_item() << std::endl;
+        std::cout << "Item: " << iter->currentItem() << std::endl;
         iter->next();
     }
 

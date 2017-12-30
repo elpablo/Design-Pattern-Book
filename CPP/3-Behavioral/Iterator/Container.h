@@ -25,12 +25,12 @@ public:
         return _items[_container_pointer--];
     }
 
-    bool is_empty()
+    bool isEmpty()
     {
         return (_container_pointer ==  - 1);
     }
 
-    ContainerIterator *create_iterator() const; // Add a create_iterator() member
+    ContainerIterator *createIterator() const; // Add a createIterator() member
 };
 
 #endif

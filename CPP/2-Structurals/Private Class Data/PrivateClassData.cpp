@@ -1,61 +1,61 @@
 #include <iostream>
 #include <math.h>
 
-class MoelData
+class ModelData
 {
     // Private Class Data variables cannot be modified
-    // by anyone externally to the MoelData class and their
+    // by anyone externally to the ModelData class and their
     // structure is hidden to the client code that use the
     // Circle class
-    double radius;
-    double origin[2];
+    double _radius;
+    double _origin[2];
 
 public:
-    MoelData(double radius, double origin_x, double origin_y)
+    ModelData(double radius, double origin_x, double origin_y)
     {
-        this->radius = radius;
-        this->origin[0] = origin_x;
-        this->origin[1] = origin_y;
+        this->_radius = radius;
+        this->_origin[0] = origin_x;
+        this->_origin[1] = origin_y;
     }
 
-    double Radius()
+    double radius()
     {
-        return this->radius;
+        return this->_radius;
     }
 
-    double OriginX()
+    double originX()
     {
-        return this->origin[0];
+        return this->_origin[0];
     }
 
-    double OriginY()
+    double originY()
     {
-        return this->origin[1];
+        return this->_origin[1];
     }
 };
 
 
 class Circle
 {
-    MoelData *_data;
+    ModelData *_data;
 
 public:
     Circle(double r, double x, double y)
     {
-        this->_data = new MoelData(r, x, y);
+        this->_data = new ModelData(r, x, y);
     }
 
-    double Circumference()
+    double circumference()
     {
-        return 2.0 * this->_data->Radius() * M_PI;
+        return 2.0 * this->_data->radius() * M_PI;
     }
 
-    double Diameter()
+    double diameter()
     {
-        return this->_data->Radius() * 2.0;
+        return this->_data->radius() * 2.0;
     }
 
-    void Draw()
+    void draw()
     {
         //...
     }
@@ -65,8 +65,8 @@ int main()
 {
     Circle c(5, 0, 0);
 
-    std::cout << "Circumference: " << c.Circumference() << std::endl;
-    std::cout << "Diameter: " << c.Diameter() << std::endl;
+    std::cout << "circumference: " << c.circumference() << std::endl;
+    std::cout << "diameter: " << c.diameter() << std::endl;
 
     return 0;
 }
@@ -75,7 +75,7 @@ int main()
 /*
 Output:
 
-Circumference: 31.4159
-Diameter: 10
+circumference: 31.4159
+diameter: 10
 
 */

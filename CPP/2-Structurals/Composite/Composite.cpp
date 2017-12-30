@@ -7,7 +7,7 @@ class FilterInterface
 {
 public:
     virtual ~FilterInterface() {}
-    virtual void apply_filter() = 0;
+    virtual void applyFilter() = 0;
 };
 
 class Filter: public FilterInterface
@@ -21,7 +21,7 @@ public:
         _value = val;
     }
 
-    /*virtual*/ void apply_filter()
+    /*virtual*/ void applyFilter()
     {
         std::cout << _value << " ";
     }
@@ -48,12 +48,12 @@ public:
         _children.push_back(f);
     }
 
-    /*virtual*/ void apply_filter()
+    /*virtual*/ void applyFilter()
     {
         for (int i = 0; i < _children.size(); i++)
         {
             // Use polymorphism to delegate to children
-            _children[i]->apply_filter();
+            _children[i]->applyFilter();
         }
     }
 };
@@ -83,15 +83,15 @@ int main()
     // class API for single filters or groups
 
     // Apply the single filter
-    single->apply_filter();
+    single->applyFilter();
     std::cout << std::endl;
 
     // Apply the filter's group
-    group->apply_filter();
+    group->applyFilter();
     std::cout << std::endl;
 
     // Apply the filter's mega_group
-    mega_group->apply_filter();
+    mega_group->applyFilter();
     std::cout << std::endl;
 
     delete single;

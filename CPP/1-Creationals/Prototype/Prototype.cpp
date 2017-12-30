@@ -7,14 +7,14 @@ class Filter
 public:
     virtual ~Filter() {}
     virtual Filter* clone() = 0;
-    virtual void apply_filter() = 0;
+    virtual void applyFilter() = 0;
 };
 
 // Factory method used to allocate the prototypes
 class Factory
 {
 public:
-    static Filter *make_filter( int filter_index );
+    static Filter *makeFilter( int filter_index );
 
 private:
     // This factory has 3 types of prototype
@@ -28,7 +28,7 @@ public:
     {
         return new GaussianBlur();
     }
-    /*virtual*/ void apply_filter()
+    /*virtual*/ void applyFilter()
     {
         std::cout << "GaussianBlur: applying filter...\n";
     }
@@ -41,7 +41,7 @@ public:
     {
         return new Pixelate();
     }
-    /*virtual*/ void apply_filter()
+    /*virtual*/ void applyFilter()
     {
         std::cout << "Pixelate: applying filter...\n";
     }
@@ -54,7 +54,7 @@ public:
     {
         return new Threshold();
     }
-    /*virtual*/ void apply_filter()
+    /*virtual*/ void applyFilter()
     {
         std::cout << "Threshold: applying filter...\n";
     }
@@ -66,7 +66,7 @@ Filter *Factory::s_prototypes[] = {
 };
 
 // Implementation of the Factory method used to create cloned prototypes objects
-Filter *Factory::make_filter( int filter_index )
+Filter *Factory::makeFilter( int filter_index )
 {
     return s_prototypes[filter_index]->clone();
 }
@@ -79,14 +79,14 @@ int main()
 
     // Create some filters
     // 0 => GaussianBlur, 1 => Pixelate, 2 => Threshold
-    filters.push_back( Factory::make_filter( 0 ) );
-    filters.push_back( Factory::make_filter( 2 ) );
-    filters.push_back( Factory::make_filter( 1 ) );
+    filters.push_back( Factory::makeFilter( 0 ) );
+    filters.push_back( Factory::makeFilter( 2 ) );
+    filters.push_back( Factory::makeFilter( 1 ) );
 
     // Use all the created filters
     for (int i=0; i < filters.size(); ++i)
     {
-        filters[i]->apply_filter();
+        filters[i]->applyFilter();
     }
     // free the allocated memory
     for (int i=0; i < filters.size(); ++i)

@@ -25,9 +25,9 @@ public:
         _index++;
     }
 
-    bool is_done();
+    bool isDone();
 
-    int current_item();
+    int currentItem();
 };
 
 #endif

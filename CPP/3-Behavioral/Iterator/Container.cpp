@@ -1,7 +1,7 @@
 #include "Container.h"
 #include "ContainerIterator.h"
 
-ContainerIterator *Container::create_iterator() const
+ContainerIterator *Container::createIterator() const
 {
     return new ContainerIterator(this);
 }

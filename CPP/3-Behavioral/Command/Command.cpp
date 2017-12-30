@@ -23,38 +23,38 @@ class SimpleCommand: public Command
 {
     // Define a type to match the function to call
     typedef void(Order:: *Action)(int &);
-    Order *receiver;
-    Action action;
+    Order *_receiver;
+    Action _action;
 
 public:
     SimpleCommand(Order *rec, Action act)
     {
-        receiver = rec;
-        action = act;
+        _receiver = rec;
+        _action = act;
     }
 
     /*virtual*/ void execute(int &num)
     {
         // Pass the num argument to the called function
-        (receiver->*action)(num);
+        (_receiver->*_action)(num);
     }
 };
 
 class MacroCommand: public Command
 {
-    std::vector<Command *> list;
+    std::vector<Command *> _list;
 
 public:
     void add(Command *cmd)
     {
-        list.push_back(cmd);
+        _list.push_back(cmd);
     }
 
     /*virtual*/ void execute(int &num)
     {
-        for (int i = 0; i < list.size(); i++)
+        for (int i = 0; i < _list.size(); i++)
         {
-            list[i]->execute(num);
+            _list[i]->execute(num);
         }
     }
 };

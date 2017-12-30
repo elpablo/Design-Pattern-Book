@@ -7,7 +7,7 @@ class Image;
 class ImageBuilder
 {
     std::string _name;
-    int size[2];
+    int _size[2];
 
 public:
     // Assign the file name of the image to read
@@ -19,8 +19,8 @@ public:
     // Assign the size of the image we want as output
     ImageBuilder *setSize(int w, int h)
     {
-        this->size[0] = w;
-        this->size[1] = h;
+        this->_size[0] = w;
+        this->_size[1] = h;
         return this;
     }
     // When we have assigned all the information we can call the build method
