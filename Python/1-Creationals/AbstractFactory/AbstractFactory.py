@@ -6,10 +6,10 @@ objects without specifying their concrete classes.
 """
 
 
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 
-class Gadget(metaclass=ABCMeta):
+class Gadget(ABC):
     """
     Declare an interface for operations that create abstract product
     objects.
@@ -49,7 +49,7 @@ class Apple(Gadget):
         return AppleWatchSeries()
 
 
-class SmartPhone(metaclass=ABCMeta):
+class SmartPhone(ABC):
     """
     Declare an interface for a type of product object.
     """
@@ -62,7 +62,7 @@ class SmartPhone(metaclass=ABCMeta):
         pass
 
 
-class SmartWatch(metaclass=ABCMeta):
+class SmartWatch(ABC):
     """
     Declare an interface for a type of product object.
     """
