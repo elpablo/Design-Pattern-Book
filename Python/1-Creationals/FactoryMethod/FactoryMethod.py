@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 
-class Feature(metaclass=ABCMeta):
+class Feature(ABC):
     def __init__(self):
         pass
 
@@ -32,7 +32,7 @@ class CallFeatures(Feature):
         print("Voice Call, Phonebook")
 
 
-class Gadgets(metaclass=ABCMeta):
+class Gadgets(ABC):
     def __init__(self):
         self.features = []
         self.feature_list()
