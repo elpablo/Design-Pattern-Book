@@ -127,8 +127,8 @@ public:
         }
         else if (_state == SubmitToStreamer)
         {
-            // If Encoding is complete, forward to MediaStreamer
-            if (_encoder.checkOnStatus())
+            // If Compression is complete, forward to MediaStreamer
+            if (_compressor.checkOnStatus())
             {
                 _state++;
                 _dataStreamer.processData();
