@@ -90,12 +90,16 @@ int main()
 /*
 Output:
 
-Enter number selection (0=1x 1=2x): 3 0
+Order: 3
+Enter number selection (0=1x 1=2x): 0
    3
-Enter number selection (0=1x 1=2x): 3 1
+Order: 3
+Enter number selection (0=1x 1=2x): 1
    12
-Enter number selection (0=1x 1=2x): 4 0
+Order: 4
+Enter number selection (0=1x 1=2x): 0
    8
-Enter number selection (0=1x 1=2x): 4 1
+Order: 4
+Enter number selection (0=1x 1=2x): 1
    16
 */
