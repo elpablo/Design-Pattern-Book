@@ -46,7 +46,7 @@ public:
     }
 };
 
-// A 'ConcreteFlyweight' class
+// B 'ConcreteFlyweight' class
 class CharacterB : public Character
 {
 public:
@@ -76,7 +76,7 @@ public:
 
 // C, D, E,...
 
-// A 'ConcreteFlyweight' class
+// Z 'ConcreteFlyweight' class
 class CharacterZ : public Character
 {
 public:
