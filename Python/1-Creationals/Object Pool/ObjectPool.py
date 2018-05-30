@@ -94,3 +94,17 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+"""
+Output:
+
+Creating new resource...
+https://www.dataresources.com/server_entry_point.php
+Creating new resource...
+https://www.another-dataresources.com/another_server_entry_point.php
+Reusing existing resource...
+
+Reusing existing resource...
+
+"""
