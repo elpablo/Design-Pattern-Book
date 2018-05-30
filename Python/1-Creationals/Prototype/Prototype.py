@@ -4,15 +4,26 @@ from abc import ABC, abstractmethod
 
 
 class Filter(ABC):
+    """
+    Base class for the prototype pattern
+    """
     def __init__(self):
         pass
 
     @abstractmethod
     def clone(self):
+        """
+        Method used to generate the cloned instances
+        :return:
+        """
         pass
 
     @abstractmethod
     def apply_filter(self):
+        """
+        Method used to demonstrate the execution of different filters
+        :return: None
+        """
         pass
 
 
@@ -41,6 +52,9 @@ class Threshold(Filter):
 
 
 class Factory(ABC):
+    """
+    Factory used to create objects from the corresponding prototype
+    """
     prototypes = [GaussianBlur(), Pixelate(), Threshold()]
 
     @staticmethod
