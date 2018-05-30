@@ -4,11 +4,18 @@ from abc import ABC, abstractmethod
 
 
 class Feature(ABC):
+    """
+    Base class of the objects that have to be created using the factory method
+    """
     def __init__(self):
         pass
 
     @abstractmethod
     def specifications(self):
+        """
+        Method used to customise the functionality of a particular item
+        :return: None
+        """
         pass
 
 
@@ -33,12 +40,19 @@ class CallFeatures(Feature):
 
 
 class Gadgets(ABC):
+    """
+    Base class of items that will contain one or more Features
+    """
     def __init__(self):
         self.features = []
         self.feature_list()
 
     @abstractmethod
     def feature_list(self):
+        """
+        It will build the list of feature for a specific item
+        :return: None
+        """
         pass
 
     def get_features(self):
@@ -50,6 +64,10 @@ class Gadgets(ABC):
 
 class Mobile(Gadgets):
     def feature_list(self):
+        """
+        It builds the feature list for a Mobile device
+        :return: None
+        """
         self.add_features(DisplayFeatures())
         self.add_features(ProcessorFeatures())
         self.add_features(CallFeatures())
@@ -57,6 +75,11 @@ class Mobile(Gadgets):
 
 
 class Tablet(Gadgets):
+    """
+    It builds the feature list for a Tablet device
+    :return: None
+    """
+
     def feature_list(self):
         self.add_features(DisplayFeatures())
         self.add_features(StorageFeatures())
@@ -78,3 +101,21 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+"""
+Output:
+
+##### MOBILE FEATURE LIST #####
+5.5 inch, 1280 x 720 Pixels, TFT LCD IPS
+MediaTek MTK6737 1.3GHz, Quad Core, 1.3 GHz
+Voice Call, Phonebook
+Internal Storage 32GB, RAM 3GB
+
+
+##### TABLET FEATURE LIST #####
+5.5 inch, 1280 x 720 Pixels, TFT LCD IPS
+Internal Storage 32GB, RAM 3GB
+MediaTek MTK6737 1.3GHz, Quad Core, 1.3 GHz
+
+"""
