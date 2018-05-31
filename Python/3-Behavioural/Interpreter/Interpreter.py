@@ -8,12 +8,22 @@ from abc import ABC, abstractmethod
 #
 
 class ExpressionInterpreter(ABC):
+    """
+    Base class used to interpret the grammar expressions
+    """
     @abstractmethod
     def interpret(self):
+        """
+        It is the signature of the method used to interpret the different grammar expressions
+        :return: The interpreted expression
+        """
         pass
 
 
 class NumberExpression(ExpressionInterpreter):
+    """
+    Interpreter class used to interpret numerical symbols
+    """
     def __init__(self, n):
         self._number = n
 
@@ -22,6 +32,9 @@ class NumberExpression(ExpressionInterpreter):
 
 
 class AddExpression(ExpressionInterpreter):
+    """
+    Interpreter class used to interpret add expressions
+    """
     def __init__(self, left_expression, right_expression):
         self._left = left_expression
         self._right = right_expression
@@ -31,6 +44,9 @@ class AddExpression(ExpressionInterpreter):
 
 
 class SubtractExpression(ExpressionInterpreter):
+    """
+    Interpreter class used to interpret subtract expressions
+    """
     def __init__(self, left_expression, right_expression):
         self._left = left_expression
         self._right = right_expression
@@ -42,6 +58,10 @@ class SubtractExpression(ExpressionInterpreter):
 
 
 class TokenContext:
+    """
+    Class used to manage the context of the input document splitting it into simpler expressions
+    and use the interpreter pattern to decode it
+    """
     def __init__(self, token):
         self._tokenList = token.split()
 
@@ -74,8 +94,10 @@ class TokenContext:
 
 
 def main():
+    # Create a context
     context = TokenContext("+ - 10 2 3")
     expression = context.read_token()
+    # call the interpreter pattern to decode it and print the result
     print(expression.interpret())  # (10 - 2) + 3 = 11
 
     context = TokenContext("- + 10 5 - 8 2")

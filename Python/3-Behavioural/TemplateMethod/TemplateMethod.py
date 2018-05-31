@@ -11,20 +11,40 @@ class Chart(ABC):
         pass
 
     def _vetting_data(self):
+        """
+        Demo method used to demonstrate the Template Method Design Pattern
+        :return: None
+        """
         print("remove non valid values -> ")
 
     def _features_extraction(self):
+        """
+        Demo method used to demonstrate the Template Method Design Pattern
+        :return: None
+        """
         print("extract chart data -> ")
 
     @abstractmethod
     def _read_data(self):
+        """
+        Template method that will be customized by the child classes
+        :return: None
+        """
         pass
 
     @abstractmethod
     def _draw_data(self):
+        """
+        Template method that will be customized by the child classes
+        :return: None
+        """
         pass
 
     def execute(self):
+        """
+        Demo method that will use the template methods together with the regular ones
+        :return: None
+        """
         self._read_data()
         self._vetting_data()
         self._features_extraction()
@@ -32,6 +52,9 @@ class Chart(ABC):
 
 
 class LineChart(Chart):
+    """
+    Child class that will implement a version of Template Methods
+    """
     def _read_data(self):
         print("read LineChart data -> ")
 
@@ -40,6 +63,9 @@ class LineChart(Chart):
 
 
 class PieChart(Chart):
+    """
+    Child class that will implement a version of Template Methods
+    """
     def _read_data(self):
         print("read PieChart data -> ")
 

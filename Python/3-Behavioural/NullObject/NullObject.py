@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 
 class Item(ABC):
     """
-    Base class for the NullObject. It defines the common API of the NullObject and a valid Item object
+    It defines the common API of the NullObject and a valid Item object
     """
     def __init__(self):
         pass
