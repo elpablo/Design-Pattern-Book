@@ -29,8 +29,8 @@ class FilterGroup(FilterInterface):
         FilterInterface.__init__(self)
         self.filters = []
 
-    def add_filter(self, filter):
-        self.filters.append(filter)
+    def add_filter(self, f):
+        self.filters.append(f)
 
     def apply_filter(self):
         for f in self.filters:
@@ -86,4 +86,5 @@ Apply filter with param 6
 Apply filter with param 7
 Apply filter with param 8
 Apply filter with param 9
+
 """
