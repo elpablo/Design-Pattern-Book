@@ -2,6 +2,9 @@
 
 
 class EventHandler:
+    """
+    Base class of the event's handlers. It defines the handler's API
+    """
     def __init__(self):
         self._next = None
 
@@ -9,16 +12,26 @@ class EventHandler:
         self._next = handler
 
     def add(self, handler):
+        """
+        It adds a given handler to the chain assigning it to the _next property
+        :param handler: the handler to put in chain
+        :return: None
+        """
         if self._next is None:
             self._next = handler
         else:
             self._next.add(handler)
 
-    def handle(self, i):
+    def handle(self, ev):
+        """
+        It allows to handle the given event
+        :param ev: the event to handle
+        :return: None
+        """
         if self._next is None:
-            print("Event %d not handled!!", i)
+            print("Event %d not handled!!", ev)
         else:
-            self._next.handle(i)
+            self._next.handle(ev)
 
 
 class MouseEventHandler(EventHandler):
