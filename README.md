@@ -1,4 +1,4 @@
-# Design Pattern Book -- Examples
+# Design Patterns Book -- Examples
 
 This project contains some examples of Design Patterns subdivided by categories. This first version is based on examples written in  C++.
 
