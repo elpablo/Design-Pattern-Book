@@ -10,4 +10,4 @@ If you are new to CMake I suggest you to take a look at it on its documentation'
 
 Then run `make` on a terminal window into the build directory and you'll get the demo executables on each example's subdirectory.
 
-The eBook is available on the [iBooks Store]( https://itunes.apple.com/us/book/design-pattern/id1332866004?ls=1&mt=11 ) for Apple devices and on the [Amazon Store]( https://www.amazon.it/dp/B078X3D6KH ) for the Kindle edition.
+The eBook is available on the [Amazon Store]( https://www.amazon.it/dp/B078X3D6KH ) for the Kindle edition.
