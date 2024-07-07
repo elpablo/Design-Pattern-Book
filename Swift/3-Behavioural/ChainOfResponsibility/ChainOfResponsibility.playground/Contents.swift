@@ -1,78 +1,80 @@
 import Foundation
 
-class RealImage {
-    let id: Int
+class EventHandler {
+    var next: EventHandler?
     
-    init(id: Int) {
-        self.id = id
-        print("   ctor: \(id)")
+    func setNext(_ n: EventHandler) {
+        next = n
     }
     
-    deinit {
-        print("   dtor: \(id)")
+    func add(_ n: EventHandler) {
+        if let next = next {
+            next.add(n)
+        } else {
+            next = n
+        }
     }
     
-    func draw() {
-        print("   drawing the image \(id)")
+    func handle(_ i: Int) {
+        next?.handle(i)
     }
 }
 
-class ImageProxy {
-    private var theRealImage: RealImage?
-    private let id: Int
-    private static var next = 1
-    
-    init() {
-        id = ImageProxy.next
-        ImageProxy.next += 1
-    }
-    
-    deinit {
-        // Swift's ARC will handle memory management automatically
-        print("ImageProxy deinit: \(id)")
-    }
-    
-    func draw() {
-        if theRealImage == nil {
-            theRealImage = RealImage(id: id)
+class MouseEventHandler: EventHandler {
+    override func handle(_ i: Int) {
+        if Int.random(in: 0...2) != 0 {
+            print("MouseEvent passed \(i)  ", terminator: "")
+            super.handle(i)
+        } else {
+            print("MouseEvent handled \(i)  ", terminator: "")
         }
-        theRealImage?.draw()
+    }
+}
+
+class KeyEventHandler: EventHandler {
+    override func handle(_ i: Int) {
+        if Int.random(in: 0...2) != 0 {
+            print("KeyEvent passed \(i)  ", terminator: "")
+            super.handle(i)
+        } else {
+            print("KeyEvent handled \(i)  ", terminator: "")
+        }
+    }
+}
+
+class InteractionEventHandler: EventHandler {
+    override func handle(_ i: Int) {
+        if Int.random(in: 0...2) != 0 {
+            print("InteractionEvent passed \(i)  ", terminator: "")
+            super.handle(i)
+        } else {
+            print("InteractionEvent handled \(i)  ", terminator: "")
+        }
     }
 }
 
 // Client code
-var images: [ImageProxy] = []
+let mainUI = MouseEventHandler()
+let textField = KeyEventHandler()
+let textArea = InteractionEventHandler()
 
-for _ in 0..<5 {
-    images.append(ImageProxy())
+mainUI.add(textField)
+mainUI.add(textArea)
+textArea.setNext(mainUI)
+
+for i in 1...9 {
+    mainUI.handle(i)
+    print()
 }
-
-for image in images {
-    image.draw()
-}
-
-// Force deallocation to see deinit messages
-images.removeAll()
 
 /**
- ctor: 1
-    drawing the image 1
-    ctor: 2
-    drawing the image 2
-    ctor: 3
-    drawing the image 3
-    ctor: 4
-    drawing the image 4
-    ctor: 5
-    drawing the image 5
- ImageProxy deinit: 5
-    dtor: 5
- ImageProxy deinit: 4
-    dtor: 4
- ImageProxy deinit: 3
-    dtor: 3
- ImageProxy deinit: 2
-    dtor: 2
- ImageProxy deinit: 1
-    dtor: 1
+ MouseEvent passed 1  KeyEvent passed 1  InteractionEvent handled 1
+ MouseEvent handled 2
+ MouseEvent passed 3  KeyEvent handled 3
+ MouseEvent passed 4  KeyEvent passed 4  InteractionEvent passed 4  MouseEvent handled 4
+ MouseEvent handled 5
+ MouseEvent passed 6  KeyEvent handled 6
+ MouseEvent passed 7  KeyEvent passed 7  InteractionEvent handled 7
+ MouseEvent handled 8
+ MouseEvent passed 9  KeyEvent passed 9  InteractionEvent handled 9
  */
