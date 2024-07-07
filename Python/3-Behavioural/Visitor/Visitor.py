@@ -25,8 +25,8 @@ class UpperTextVisitor(Visitor):
     def visit(self, page):
         """
         It apply the new function to the model
-        :param page: The model on which will be applyed the visitor
-        :return:
+        :param page: The model on which will be applied the visitor
+        :return: None
         """
         self._str = page.text().upper()
 
@@ -42,6 +42,11 @@ class LowerTextVisitor(Visitor):
         self._str = ""
 
     def visit(self, page):
+        """
+        It apply the new function to the model
+        :param page: The model on which will be applied the visitor
+        :return: None
+        """
         self._str = page.text().lower()
 
     def text(self):
