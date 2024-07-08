@@ -1,78 +1,70 @@
 import Foundation
 
-class RealImage {
-    let id: Int
-    
-    init(id: Int) {
-        self.id = id
-        print("   ctor: \(id)")
-    }
-    
-    deinit {
-        print("   dtor: \(id)")
-    }
-    
-    func draw() {
-        print("   drawing the image \(id)")
+class Order {
+    func buy(_ quantity: inout Int) {
+        print("Buy \(quantity) Items")
     }
 }
 
-class ImageProxy {
-    private var theRealImage: RealImage?
-    private let id: Int
-    private static var next = 1
+protocol Command {
+    func execute(_ num: inout Int)
+}
+
+class SimpleCommand: Command {
+    typealias Action = (Order) -> (inout Int) -> Void
     
-    init() {
-        id = ImageProxy.next
-        ImageProxy.next += 1
+    private let receiver: Order
+    private let action: Action
+    
+    init(_ receiver: Order, _ action: @escaping Action) {
+        self.receiver = receiver
+        self.action = action
     }
     
-    deinit {
-        // Swift's ARC will handle memory management automatically
-        print("ImageProxy deinit: \(id)")
+    func execute(_ num: inout Int) {
+        action(receiver)(&num)
+    }
+}
+
+class MacroCommand: Command {
+    private var list: [Command] = []
+    
+    func add(_ cmd: Command) {
+        list.append(cmd)
     }
     
-    func draw() {
-        if theRealImage == nil {
-            theRealImage = RealImage(id: id)
+    func execute(_ num: inout Int) {
+        for command in list {
+            command.execute(&num)
         }
-        theRealImage?.draw()
     }
 }
 
-// Client code
-var images: [ImageProxy] = []
+// Playground simulation
+let object = Order()
+var commands: [Command] = []
 
-for _ in 0..<5 {
-    images.append(ImageProxy())
+let simpleCommand = SimpleCommand(object, Order.buy)
+commands.append(simpleCommand)
+
+let buyTwice = MacroCommand()
+buyTwice.add(simpleCommand)
+buyTwice.add(simpleCommand)
+commands.append(buyTwice)
+
+func simulateOrder(quantity: Int, times: Int) {
+    print("Order: \(quantity)")
+    print("Times (1 => 1x, 2 => 2x): \(times)")
+    
+    if times == 1 || times == 2 {
+        var num = quantity
+        commands[times - 1].execute(&num)
+    }
+    print()
 }
 
-for image in images {
-    image.draw()
-}
-
-// Force deallocation to see deinit messages
-images.removeAll()
-
-/**
- ctor: 1
-    drawing the image 1
-    ctor: 2
-    drawing the image 2
-    ctor: 3
-    drawing the image 3
-    ctor: 4
-    drawing the image 4
-    ctor: 5
-    drawing the image 5
- ImageProxy deinit: 5
-    dtor: 5
- ImageProxy deinit: 4
-    dtor: 4
- ImageProxy deinit: 3
-    dtor: 3
- ImageProxy deinit: 2
-    dtor: 2
- ImageProxy deinit: 1
-    dtor: 1
- */
+// Simulate a sequence of orders
+simulateOrder(quantity: 3, times: 1)
+simulateOrder(quantity: 3, times: 2)
+simulateOrder(quantity: 4, times: 1)
+simulateOrder(quantity: 4, times: 2)
